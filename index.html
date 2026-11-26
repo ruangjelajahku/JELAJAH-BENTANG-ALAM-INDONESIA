@@ -906,9 +906,11 @@ function tampilkanNavigasi(){
 }
 
 tampilkanNavigasi();
-$('#path').innerHTML=P.slice(1).map((p,i)=>`<a class="dot" href="#${p[0]}" style="--c:${p[2]};--on:${p[3]}"><i>${L[i]}</i><span>${p[1].split(' · ')[1]}</span></a>`).join('');
-P.slice(1).forEach((p,i)=>{
-  const prev=P[i],next=P[i+2];
+const halamanBelajar = P.filter(p => p[0] !== 'dashboard-guru');
+
+$('#path').innerHTML=halamanBelajar.slice(1).map((p,i)=>`<a class="dot" href="#${p[0]}" style="--c:${p[2]};--on:${p[3]}"><i>${L[i]}</i><span>${p[1].split(' · ')[1]}</span></a>`).join('');
+halamanBelajar.slice(1).forEach((p,i)=>{
+  const prev=halamanBelajar[i],next=halamanBelajar[i+2];
   $('#nx-'+p[0]).innerHTML=`<a class="btn" style="--c:#dde4ec;--on:#2d3b4a" href="#${prev[0]}">← Kembali</a>`+(next?`<a class="btn" style="--c:${next[2]};--on:${next[3]}" href="#${next[0]}">Lanjut ke ${next[1].split(' · ').pop()} →</a>`:`<a class="btn" style="--c:#a9cdf5;--on:#1d3557" href="#beranda">Ke Beranda 🏠</a>`);
 });
 function route(x){
