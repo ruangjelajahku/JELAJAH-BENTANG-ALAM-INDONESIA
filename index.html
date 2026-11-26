@@ -169,22 +169,53 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 </head>
 <body>
 
-<!-- FORM IDENTITAS MURID -->
+<!-- LOGIN MURID DAN GURU -->
 <div class="identity-overlay" id="identityGate">
-  <form class="identity-box" id="identityForm">
+  <div class="identity-box" id="loginBox">
+
     <h2>🌈 Selamat Datang!</h2>
-    <p>Isi identitasmu sebelum memulai petualangan Jelajah Bentang Alam Indonesia.</p>
+    <p>Selamat datang di petualangan Jelajah Bentang Alam Indonesia!</p>
 
-    <label for="namaMurid">Nama lengkap</label>
-    <input type="text" id="namaMurid" placeholder="Tuliskan nama lengkapmu" required>
+    <h3>Masuk sebagai:</h3>
 
-    <label for="kelasMurid">Kelas</label>
-    <input type="text" id="kelasMurid" placeholder="Contoh: III A" required>
+    <div style="display:flex;gap:10px;margin:15px 0">
+      <button type="button" class="btn" style="flex:1" onclick="pilihLogin('murid')">
+        👧 Murid
+      </button>
 
-    <button type="submit" class="btn">
-      Mulai Petualangan 🚀
-    </button>
-  </form>
+      <button type="button" class="btn" style="flex:1" onclick="pilihLogin('guru')">
+        👩‍🏫 Guru
+      </button>
+    </div>
+
+    <!-- FORM MURID -->
+    <form id="identityForm" hidden>
+      <h3>👧 Identitas Murid</h3>
+
+      <label for="namaMurid">Nama lengkap</label>
+      <input type="text" id="namaMurid" placeholder="Tuliskan nama lengkapmu" required>
+
+      <label for="kelasMurid">Kelas</label>
+      <input type="text" id="kelasMurid" placeholder="Contoh: III A" required>
+
+      <button type="submit" class="btn" style="margin-top:15px">
+        Mulai Petualangan 🚀
+      </button>
+    </form>
+
+    <!-- FORM GURU -->
+    <form id="guruForm" hidden>
+      <h3>👩‍🏫 Login Guru</h3>
+
+      <label for="kodeGuru">Kode akses guru</label>
+      <input type="password" id="kodeGuru" placeholder="Masukkan kode akses" required>
+
+      <button type="submit" class="btn" style="margin-top:15px">
+        Masuk sebagai Guru
+      </button>
+    </form>
+
+  </div>
 </div>
 
 <header class="top">
@@ -1043,9 +1074,10 @@ $('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};
 $('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};
 showF();
 
-// IDENTITAS MURID
+// LOGIN MURID DAN GURU
 const identityGate = $('#identityGate');
 const identityForm = $('#identityForm');
+const guruForm = $('#guruForm');
 
 function tampilkanIdentitas(){
   identityGate.hidden = false;
@@ -1055,6 +1087,21 @@ function sembunyikanIdentitas(){
   identityGate.hidden = true;
 }
 
+// PILIH LOGIN
+function pilihLogin(peran){
+  identityForm.hidden = true;
+  guruForm.hidden = true;
+
+  if(peran === 'murid'){
+    identityForm.hidden = false;
+  }
+
+  if(peran === 'guru'){
+    guruForm.hidden = false;
+  }
+}
+
+// LOGIN MURID
 identityForm.addEventListener('submit', function(e){
   e.preventDefault();
 
@@ -1068,20 +1115,74 @@ identityForm.addEventListener('submit', function(e){
 
   const identitas = {
     nama: nama,
-    kelas: kelas
+    kelas: kelas,
+    peran: 'murid'
   };
 
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
+  sessionStorage.setItem('peranPengguna', 'murid');
+// ABSENSI OTOMATIS
+fetch(SCRIPT_URL, {
+  method: 'POST',
+  mode: 'no-cors',
+  headers: {
+    'Content-Type': 'text/plain;charset=utf-8'
+  },
+  body: JSON.stringify({
+    aksi: 'kehadiran',
+    nama: nama,
+    kelas: kelas
+  })
+});
+  
+// UCAPAN SELAMAT DATANG
+alert(`🌈 Halo, ${nama}!
+Selamat datang di Jelajah Bentang Alam Indonesia!
+
+Selamat belajar dan menjelajah! 🏞️`);
+
+sembunyikanIdentitas();
+});
+
+// LOGIN GURU
+guruForm.addEventListener('submit', function(e){
+  e.preventDefault();
+
+  const kode = $('#kodeGuru').value;
+
+  // KODE AKSES GURU
+  if(kode !== 'GURU123'){
+    alert('Kode akses salah. Silakan coba kembali.');
+    return;
+  }
+
+  sessionStorage.setItem('peranPengguna', 'guru');
+
+  alert('👩‍🏫 Selamat datang, Bapak/Ibu Guru!');
+
   sembunyikanIdentitas();
 });
 
+// GANTI IDENTITAS / LOGOUT
 $('#changeIdentity').addEventListener('click', function(){
+
   sessionStorage.removeItem('identitasMurid');
+  sessionStorage.removeItem('peranPengguna');
+
   identityForm.reset();
+  guruForm.reset();
+
+  identityForm.hidden = true;
+  guruForm.hidden = true;
+
   tampilkanIdentitas();
 });
 
-if(sessionStorage.getItem('identitasMurid')){
+// CEK LOGIN SAAT WEBSITE DIBUKA
+if(
+  sessionStorage.getItem('identitasMurid') ||
+  sessionStorage.getItem('peranPengguna') === 'guru'
+){
   sembunyikanIdentitas();
 }else{
   tampilkanIdentitas();
