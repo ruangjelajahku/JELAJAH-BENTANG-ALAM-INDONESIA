@@ -1094,8 +1094,11 @@ identityForm.addEventListener('submit', function(e){
   };
 
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
-  sembunyikanIdentitas();
-  tampilkanSapaan();
+
+kirimKehadiran(identitas);
+
+sembunyikanIdentitas();
+tampilkanSapaan();
 });
 
 $('#changeIdentity').addEventListener('click', function(){
@@ -1114,7 +1117,35 @@ if(sessionStorage.getItem('identitasMurid')){
 }
 
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKWar0qFR5W6t3rxUK5mYpE8wqR8T0_8csgSp47JSzVko1mY9w2OeoOR2apyo2UmqoOg/exec';
+// MENGIRIM KEHADIRAN MURID
+function kirimKehadiran(identitas){
 
+  // Mencegah absensi tercatat berulang dalam satu sesi
+  if(sessionStorage.getItem('kehadiranTerkirim')) return;
+
+  const data = {
+    aksi: 'kehadiran',
+    nama: identitas.nama,
+    kelas: identitas.kelas
+  };
+
+  fetch(SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(() => {
+    sessionStorage.setItem('kehadiranTerkirim', 'true');
+    console.log('Permintaan kehadiran telah dikirim.');
+  })
+  .catch(error => {
+    console.error('Pengiriman kehadiran gagal:', error);
+  });
+}
+  
 function ambilIdentitas(){
   const data = JSON.parse(
     sessionStorage.getItem('identitasMurid') || 'null'
