@@ -169,53 +169,22 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 </head>
 <body>
 
-<!-- LOGIN MURID DAN GURU -->
+<!-- FORM IDENTITAS MURID -->
 <div class="identity-overlay" id="identityGate">
-  <div class="identity-box" id="loginBox">
-
+  <form class="identity-box" id="identityForm">
     <h2>🌈 Selamat Datang!</h2>
-    <p>Selamat datang di petualangan Jelajah Bentang Alam Indonesia!</p>
+    <p>Isi identitasmu sebelum memulai petualangan Jelajah Bentang Alam Indonesia.</p>
 
-    <h3>Masuk sebagai:</h3>
+    <label for="namaMurid">Nama lengkap</label>
+    <input type="text" id="namaMurid" placeholder="Tuliskan nama lengkapmu" required>
 
-    <div style="display:flex;gap:10px;margin:15px 0">
-      <button type="button" class="btn" style="flex:1" onclick="pilihLogin('murid')">
-        👧 Murid
-      </button>
+    <label for="kelasMurid">Kelas</label>
+    <input type="text" id="kelasMurid" placeholder="Contoh: III A" required>
 
-      <button type="button" class="btn" style="flex:1" onclick="pilihLogin('guru')">
-        👩‍🏫 Guru
-      </button>
-    </div>
-
-    <!-- FORM MURID -->
-    <form id="identityForm" hidden>
-      <h3>👧 Identitas Murid</h3>
-
-      <label for="namaMurid">Nama lengkap</label>
-      <input type="text" id="namaMurid" placeholder="Tuliskan nama lengkapmu" required>
-
-      <label for="kelasMurid">Kelas</label>
-      <input type="text" id="kelasMurid" placeholder="Contoh: III A" required>
-
-      <button type="submit" class="btn" style="margin-top:15px">
-        Mulai Petualangan 🚀
-      </button>
-    </form>
-
-    <!-- FORM GURU -->
-    <form id="guruForm" hidden>
-      <h3>👩‍🏫 Login Guru</h3>
-
-      <label for="kodeGuru">Kode akses guru</label>
-      <input type="password" id="kodeGuru" placeholder="Masukkan kode akses" required>
-
-      <button type="submit" class="btn" style="margin-top:15px">
-        Masuk sebagai Guru
-      </button>
-    </form>
-
-  </div>
+    <button type="submit" class="btn">
+      Mulai Petualangan 🚀
+    </button>
+  </form>
 </div>
 
 <header class="top">
@@ -234,7 +203,6 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <section class="pg" id="pg-beranda" style="--c:#a9cdf5;--on:#1d3557">
 <div class="hero"><div class="wrap">
 <h1>Jelajah Bentang Alam Indonesia</h1>
-
 <p>Halo, Penjelajah Cilik! Di sini kamu akan melihat, bermain, berdiskusi, lalu membuat karyamu sendiri. Siap menjelajah?</p>
 <svg viewBox="0 0 800 220" role="img" aria-label="Gambar gunung, sawah, sungai, dan danau">
 <g class="sun" style="transform-box:fill-box;transform-origin:center"><g stroke="#ffcc80" stroke-width="5" stroke-linecap="round"><path d="M680 4v12M680 80v12M636 48h12M712 48h12M649 17l8 8M703 71l8 8M711 17l-8 8M657 71l-8 8"/></g><circle cx="680" cy="48" r="30" fill="#ffe082"/><circle cx="670" cy="42" r="3" fill="#a65a00"/><circle cx="690" cy="42" r="3" fill="#a65a00"/><path d="M668 55q12 10 24 0" stroke="#a65a00" stroke-width="3" fill="none" stroke-linecap="round"/></g>
@@ -252,31 +220,9 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <g><circle cx="700" cy="195" r="6" fill="#f8bbd0"/><circle cx="725" cy="200" r="6" fill="#fff59d"/><circle cx="750" cy="194" r="6" fill="#ffccbc"/><circle cx="640" cy="198" r="6" fill="#fff"/></g>
 </svg>
 </div></div>
-
-<div id="sapaanBeranda" style="display:none;text-align:center;margin:24px 0 20px;color:#426a9a">
-  <h3 style="margin:0 0 6px;font-size:23px">
-    🌈 Halo, <span id="namaSapaan"></span>!
-  </h3>
-  <p style="margin:0;font-size:15px;color:#71869c">
-    Senang kamu kembali, Penjelajah Cilik! 🏞️
-  </p>
-  <p style="margin:5px 0 0;font-size:13px;color:#91a6b9">
-    Yuk, lanjutkan petualangan belajarmu hari ini!
-  </p>
-</div>
-
 <div class="wrap">
-<div class="card">
-<h3>🎥 Video Tutorial Penggunaan Website</h3>
-<p>Simak video berikut untuk mengetahui cara menggunakan website Jelajah Bentang Alam Indonesia.</p>
-
-<div style="position:relative;width:100%;aspect-ratio:16/9;background:#f0f0f0;border-radius:14px;overflow:hidden;display:flex;align-items:center;justify-content:center">
-<div style="text-align:center;padding:20px">
-<div style="font-size:48px">▶️</div>
-<p style="margin:8px 0;font-weight:700">Video tutorial akan segera tersedia</p>
-</div>
-</div>
-</div>
+<div class="card"><h3>Cara memakai website ini</h3>
+<ol style="margin:0;padding-left:22px"><li>Klik lingkaran huruf di bawah, mulai dari <b>D</b>.</li><li>Baca petunjuk, lalu kerjakan kegiatannya.</li><li>Kalau bingung, tanya Bapak/Ibu Guru.</li></ol></div>
 <h2 style="margin-top:22px">Alur petualanganmu</h2>
 <div class="path" id="path"></div>
 <!-- CAPAIAN PEMBELAJARAN -->
@@ -592,22 +538,12 @@ Contoh: Menurut saya, pekerjaan petani teh cocok dengan bentang alam dataran tin
 
 <div class="card">
 <h3>💬 Bagikan Gagasanmu!</h3>
-<p>Setelah mengisi tabel, pilih salah satu jawaban yang menurutmu paling menarik. Bagikan pendapatmu pada Padlet berikut:</p>
-
+<p>Setelah mengisi tabel, pilih salah satu jawaban yang menurutmu paling menarik. Buka Padlet dan bagikan pendapatmu dengan melengkapi kalimat berikut:</p>
 <p style="background:var(--soft);padding:12px;border-radius:12px">
 Menurut saya, pekerjaan ... cocok dengan bentang alam ... karena ...
 </p>
-
 <p>Bacalah juga pendapat teman-temanmu. Apakah jawaban kalian sama atau berbeda?</p>
-
-<div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:12px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4">
-<iframe
-src="https://padlet.com/embed/s025bqovdqgdumrnv3zp"
-style="width:100%;height:608px;display:block;border:0"
-allow="camera;microphone;geolocation;display-capture;clipboard-write"
-loading="lazy">
-</iframe>
-</div>
+<a class="btn" href="https://padlet.com/awalia11_1/papan-diskusi-s025bqovdqgdumrnv3zp" target="_blank" rel="noopener noreferrer">Buka Padlet Papan Diskusi →</a>
 </div>
   
 <div class="card">
@@ -663,21 +599,12 @@ Contoh pekerjaan: pengemudi perahu dan pembudidaya ikan.
 
 </div>
 </div>
-
 <div class="card">
   <h3>Materi Ikat Ilmuku</h3>
   <p>Yuk, pelajari kembali materi bentang alam melalui media interaktif berikut!</p>
-
-  <div style="position:relative;width:100%;height:0;padding-top:56.25%;
-  overflow:hidden;border-radius:12px;margin:16px 0;">
-    <iframe
-      loading="lazy"
-      style="position:absolute;width:100%;height:100%;top:0;left:0;border:0;"
-      src="https://www.canva.com/design/DAHabe06d_c/UiMpUswZMf5mrsKI8RHW7A/view?embed"
-      allowfullscreen="allowfullscreen"
-      allow="fullscreen">
-    </iframe>
-  </div>
+  <a class="btn" href="https://canva.link/xppymwms1cor0ch" target="_blank" rel="noopener noreferrer">
+    Buka Materi Canva 📚
+  </a>
 </div>
 
 <div class="card"><h3>Infografis bentang alam</h3><div class="grid"><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🌋</div><b>Gunung</b><br><span class="note">Menjulang tinggi<br>Profesi: Petani sayur</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🍵</div><b>Dataran tinggi</b><br><span class="note">Daerah tinggi, relatif datar, dan sejuk<br>Profesi: Petani teh</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🌾</div><b>Dataran rendah</b><br><span class="note">Datar dan rendah<br>Profesi: Petani padi</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🏖️</div><b>Pantai</b><br><span class="note">Daratan di tepi laut, berpasir<br>Profesi: Nelayan dan petani garam</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🏞️</div><b>Sungai</b><br><span class="note">Air tawar mengalir<br>Profesi: Pengemudi perahu</span></div><div style="background:var(--soft);border-radius:16px;padding:10px;text-align:center"><div style="font-size:2.2rem">🛶</div><b>Danau</b><br><span class="note">Air tawar menggenang<br>Profesi: Pembudidaya ikan</span></div></div></div>
@@ -719,16 +646,9 @@ Mempelajari kembali materi, menyampaikan kesimpulan, dan mengerjakan kuis secara
 <div class="card" id="unggah">
   <h3>📤 Unggah Karyaku</h3>
   <p>Jika sudah selesai, foto hasil karyamu dan unggah ke Padlet. Sertakan keterangan berupa nama bentang alam, profesi masyarakat, dan pesan untuk menjaga kelestariannya.</p>
-
-  <div class="padlet-embed" style="border:1px solid rgba(0,0,0,0.1);border-radius:12px;box-sizing:border-box;overflow:hidden;position:relative;width:100%;background:#F4F4F4">
-    <iframe
-      src="https://padlet.com/embed/s025c4goa8obrubyubp9"
-      frameborder="0"
-      allow="camera;microphone;geolocation;display-capture;clipboard-write"
-      style="width:100%;height:608px;display:block;padding:0;margin:0"
-      loading="lazy">
-    </iframe>
-  </div>
+  <a class="btn" href="https://padlet.com/wlsftr/karyaku-s025c4goa8obrubyubp9" target="_blank" rel="noopener noreferrer">
+    Buka Padlet Karyaku 🎨
+  </a>
 </div>
 <div class="card">
 <h3>Rubrik Karya</h3>
@@ -1097,10 +1017,9 @@ $('#sprev').onclick=()=>{if(fi>0){fi--;showF()}};
 $('#snext').onclick=()=>{if(fi<FR.length-1){fi++;showF()}};
 showF();
 
-// LOGIN MURID DAN GURU
+// IDENTITAS MURID
 const identityGate = $('#identityGate');
 const identityForm = $('#identityForm');
-const guruForm = $('#guruForm');
 
 function tampilkanIdentitas(){
   identityGate.hidden = false;
@@ -1110,33 +1029,6 @@ function sembunyikanIdentitas(){
   identityGate.hidden = true;
 }
 
-// MENAMPILKAN SAPAAN DI BERANDA
-function tampilkanSapaan(){
-  const nama = sessionStorage.getItem('sapaanMurid');
-  const kotak = document.getElementById('sapaanBeranda');
-  const namaElement = document.getElementById('namaSapaan');
-
-  if(nama && kotak && namaElement){
-    namaElement.textContent = nama;
-    kotak.style.display = 'block';
-  }
-}
-
-// PILIH LOGIN
-function pilihLogin(peran){
-  identityForm.hidden = true;
-  guruForm.hidden = true;
-
-  if(peran === 'murid'){
-    identityForm.hidden = false;
-  }
-
-  if(peran === 'guru'){
-    guruForm.hidden = false;
-  }
-}
-
-// LOGIN MURID
 identityForm.addEventListener('submit', function(e){
   e.preventDefault();
 
@@ -1150,74 +1042,21 @@ identityForm.addEventListener('submit', function(e){
 
   const identitas = {
     nama: nama,
-    kelas: kelas,
-    peran: 'murid'
+    kelas: kelas
   };
 
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
-  sessionStorage.setItem('peranPengguna', 'murid');
-// ABSENSI OTOMATIS
-fetch(SCRIPT_URL, {
-  method: 'POST',
-  mode: 'no-cors',
-  headers: {
-    'Content-Type': 'text/plain;charset=utf-8'
-  },
-  body: JSON.stringify({
-    aksi: 'kehadiran',
-    nama: nama,
-    kelas: kelas
-  })
-});
-  
-// UCAPAN SELAMAT DATANG DI BERANDA
-sessionStorage.setItem('sapaanMurid', nama);
-  tampilkanSapaan();
-
-sembunyikanIdentitas();
-});
-
-// LOGIN GURU
-guruForm.addEventListener('submit', function(e){
-  e.preventDefault();
-
-  const kode = $('#kodeGuru').value;
-
-  // KODE AKSES GURU
-  if(kode !== 'GURU123'){
-    alert('Kode akses salah. Silakan coba kembali.');
-    return;
-  }
-
-  sessionStorage.setItem('peranPengguna', 'guru');
-
-  alert('👩‍🏫 Selamat datang, Bapak/Ibu Guru!');
-
   sembunyikanIdentitas();
 });
 
-// GANTI IDENTITAS / LOGOUT
 $('#changeIdentity').addEventListener('click', function(){
-
   sessionStorage.removeItem('identitasMurid');
-  sessionStorage.removeItem('peranPengguna');
-
   identityForm.reset();
-  guruForm.reset();
-
-  identityForm.hidden = true;
-  guruForm.hidden = true;
-
   tampilkanIdentitas();
 });
 
-// CEK LOGIN SAAT WEBSITE DIBUKA
-if(
-  sessionStorage.getItem('identitasMurid') ||
-  sessionStorage.getItem('peranPengguna') === 'guru'
-){
+if(sessionStorage.getItem('identitasMurid')){
   sembunyikanIdentitas();
-  tampilkanSapaan();
 }else{
   tampilkanIdentitas();
 }
