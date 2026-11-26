@@ -44,15 +44,8 @@ textarea{width:100%;background:var(--card);color:var(--ink);border:3px solid var
 .role{display:grid;gap:10px;grid-template-columns:1fr 1fr}
 .role div{border-radius:16px;padding:12px 14px;font-size:.98rem}
 .role .g{background:#e3efff;color:#173a6e}.role .s{background:#ffe9c7;color:#5c3500}
-/* PENGATURAN TAMPILAN BERDASARKAN PERAN */
-body[data-peran="murid"] .role .g{
-  display:none;
-}
 @media (max-width:560px){.role{grid-template-columns:1fr}}
 .role strong{display:block;font-family:'Baloo 2';font-size:1.05rem}
-body[data-peran="murid"] .role .g{
-  display:none;
-}
 .btn{display:inline-block;border:0;border-radius:14px;padding:11px 20px;font:800 1rem Nunito;background:var(--c);color:var(--on);text-decoration:none;cursor:pointer}
 .lands{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
 .land{border:3px solid var(--line);background:var(--card);border-radius:18px;padding:12px 6px;font:800 1rem Nunito;color:var(--ink);cursor:pointer;text-align:center}
@@ -814,49 +807,6 @@ Membuat karya, menjelaskan hasil karyanya secara lisan, mengunggah foto karya ke
 <div class="nextrow" id="nx-karyaku"></div>
 </div>
 </section>
-<!-- DASHBOARD GURU -->
-<section class="pg" id="pg-dashboard-guru" style="--c:#b8d5f5;--on:#173a6e" hidden>
-  <div class="band">
-    <div class="wrap">
-      <div class="tag">👩‍🏫</div>
-      <h2>Dashboard Guru</h2>
-      <p>Selamat datang, Bapak/Ibu Guru! Pantau aktivitas dan hasil belajar murid.</p>
-    </div>
-  </div>
-
-  <div class="wrap">
-
-    <div class="grid">
-      <div class="card">
-        <h3>📋 Data Kehadiran</h3>
-        <p>Melihat daftar murid yang sudah mengisi kehadiran.</p>
-        <button class="btn" onclick="alert('Fitur data kehadiran akan dihubungkan ke Spreadsheet.')">
-          Lihat Kehadiran
-        </button>
-      </div>
-
-      <div class="card">
-        <h3>📝 Hasil Aktivitas Murid</h3>
-        <p>Melihat jawaban murid pada kegiatan H, E, T, dan I.</p>
-        <button class="btn" onclick="alert('Fitur hasil aktivitas akan dihubungkan ke Spreadsheet.')">
-          Lihat Jawaban
-        </button>
-      </div>
-
-      <div class="card">
-        <h3>🎨 Karya dan Refleksi</h3>
-        <p>Melihat hasil karya dan refleksi pembelajaran murid.</p>
-        <button class="btn" onclick="alert('Fitur karya dan refleksi akan dihubungkan ke Spreadsheet.')">
-          Lihat Refleksi
-        </button>
-      </div>
-        </div>
-
-    <div class="nextrow" id="nx-dashboard-guru"></div>
-
-  </div>
-</section>
-</section>
 </main>
 
 <footer class="foot"><div class="wrap">
@@ -875,8 +825,7 @@ const P=[
 ['menjelajah','E · Eksplorasi Konkret','#a8e6df','#0d4a46'],
 ['diskusi','T · Tukar Gagasan','#c5e8a5','#2c4a12'],
 ['ikat','I · Ikat Konsep','#ffb8b5','#5a1a1a'],
-['karyaku','K · Karya dan Refleksi','#cfc9f5','#2b2660'],
-['dashboard-guru','👩‍🏫 Dashboard Guru','#b8d5f5','#173a6e']
+['karyaku','K · Karya dan Refleksi','#cfc9f5','#2b2660']
 ];
 const L=['D','H','E','T','I','K'];
 const DECO={'ayo-mulai':'📖🎬⭐','hubungkan':'🏡🌾🎣','menjelajah':'🔍🗺️🧭','diskusi':'💬🤝📌','ikat':'🧩💡🏆','karyaku':'🎨✂️🖍️'};
@@ -896,31 +845,15 @@ function burst(el){
     s.animate([{transform:'translate(0,0) scale(.6)',opacity:1},{transform:`translate(${dx}px,${dy}px) scale(1.2)`,opacity:0}],{duration:800,easing:'ease-out'}).onfinish=()=>s.remove();
   });
 }
-function tampilkanNavigasi(){
-  const peran = document.body.dataset.peran;
-
-  $('#nav').innerHTML = P
-    .filter(p => p[0] !== 'dashboard-guru' || peran === 'guru')
-    .map(p => `<a href="#${p[0]}" data-p="${p[0]}" style="--c:${p[2]};--on:${p[3]}">${p[1]}</a>`)
-    .join('');
-}
-
-tampilkanNavigasi();
-const halamanBelajar = P.filter(p => p[0] !== 'dashboard-guru');
-
-$('#path').innerHTML=halamanBelajar.slice(1).map((p,i)=>`<a class="dot" href="#${p[0]}" style="--c:${p[2]};--on:${p[3]}"><i>${L[i]}</i><span>${p[1].split(' · ')[1]}</span></a>`).join('');
-halamanBelajar.slice(1).forEach((p,i)=>{
-  const prev=halamanBelajar[i],next=halamanBelajar[i+2];
+$('#nav').innerHTML=P.map(p=>`<a href="#${p[0]}" data-p="${p[0]}" style="--c:${p[2]};--on:${p[3]}">${p[1]}</a>`).join('');
+$('#path').innerHTML=P.slice(1).map((p,i)=>`<a class="dot" href="#${p[0]}" style="--c:${p[2]};--on:${p[3]}"><i>${L[i]}</i><span>${p[1].split(' · ')[1]}</span></a>`).join('');
+P.slice(1).forEach((p,i)=>{
+  const prev=P[i],next=P[i+2];
   $('#nx-'+p[0]).innerHTML=`<a class="btn" style="--c:#dde4ec;--on:#2d3b4a" href="#${prev[0]}">← Kembali</a>`+(next?`<a class="btn" style="--c:${next[2]};--on:${next[3]}" href="#${next[0]}">Lanjut ke ${next[1].split(' · ').pop()} →</a>`:`<a class="btn" style="--c:#a9cdf5;--on:#1d3557" href="#beranda">Ke Beranda 🏠</a>`);
 });
 function route(x){
   const h=x||(location.hash||'#beranda').slice(1);
-  const peran = document.body.dataset.peran;
-
-const id = P.some(p => p[0] === h) &&
-  (h !== 'dashboard-guru' || peran === 'guru')
-    ? h
-    : 'beranda';
+  const id=P.some(p=>p[0]===h)?h:'beranda';
   document.querySelectorAll('.pg').forEach(s=>s.hidden=s.id!=='pg-'+id);
   document.querySelectorAll('#nav a').forEach(a=>{a.toggleAttribute('aria-current',a.dataset.p===id);if(a.dataset.p===id){a.setAttribute('aria-current','page');a.scrollIntoView({inline:'center',block:'nearest'})}});
   window.scrollTo(0,0);
@@ -1223,9 +1156,6 @@ identityForm.addEventListener('submit', function(e){
 
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
   sessionStorage.setItem('peranPengguna', 'murid');
-  document.body.dataset.peran = 'murid';
-  tampilkanNavigasi();
-
 // ABSENSI OTOMATIS
 fetch(SCRIPT_URL, {
   method: 'POST',
@@ -1259,11 +1189,7 @@ guruForm.addEventListener('submit', function(e){
     return;
   }
 
- sessionStorage.setItem('peranPengguna', 'guru');
-document.body.dataset.peran = 'guru';
-
-tampilkanNavigasi();
-route('beranda');
+  sessionStorage.setItem('peranPengguna', 'guru');
 
   alert('👩‍🏫 Selamat datang, Bapak/Ibu Guru!');
 
@@ -1276,36 +1202,25 @@ $('#changeIdentity').addEventListener('click', function(){
   sessionStorage.removeItem('identitasMurid');
   sessionStorage.removeItem('peranPengguna');
 
-  document.body.removeAttribute('data-peran');
-
   identityForm.reset();
   guruForm.reset();
 
   identityForm.hidden = true;
   guruForm.hidden = true;
 
-  tampilkanNavigasi();
-  route('beranda');
   tampilkanIdentitas();
 });
 
 // CEK LOGIN SAAT WEBSITE DIBUKA
-const peranTersimpan = sessionStorage.getItem('peranPengguna');
-
 if(
   sessionStorage.getItem('identitasMurid') ||
-  peranTersimpan === 'guru'
+  sessionStorage.getItem('peranPengguna') === 'guru'
 ){
-  document.body.dataset.peran = peranTersimpan;
   sembunyikanIdentitas();
-
-  if(peranTersimpan === 'murid'){
-    tampilkanSapaan();
-  }
+  tampilkanSapaan();
 }else{
   tampilkanIdentitas();
 }
-
 
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKWar0qFR5W6t3rxUK5mYpE8wqR8T0_8csgSp47JSzVko1mY9w2OeoOR2apyo2UmqoOg/exec';
 
