@@ -760,12 +760,12 @@ function setTheme(t){th.dataset.theme=t;tb.textContent=t==='light'?'🌙':'☀�
 tb.onclick=()=>setTheme(th.dataset.theme==='light'?'dark':'light');
 
 const LD=[
-['🌋','Gunung','Permukaan bumi yang menjulang tinggi. Beberapa gunung memiliki kawah. Contoh: Gunung Bromo.','https://commons.wikimedia.org/wiki/Special:FilePath/The_Famous_Mount_Bromo.jpg?width=900'],
-['🍵','Dataran tinggi','Daerah daratan yang tinggi dan relatif datar. Udaranya biasanya sejuk. Contoh: Dieng.','https://commons.wikimedia.org/wiki/Special:FilePath/Dieng_Plateau.jpg?width=900'],
-['🌾','Dataran rendah','Daerah daratan yang rendah dan relatif datar. Banyak dimanfaatkan untuk permukiman dan persawahan.','https://commons.wikimedia.org/wiki/Special:FilePath/Rice_fields_in_Karawang.jpg?width=900'],
-['🏖️','Pantai','Daerah pertemuan daratan dengan laut. Pantai dapat memiliki pasir. Contoh: Pantai Kuta.','https://commons.wikimedia.org/wiki/Special:FilePath/Kuta_Beach_Bali.jpg?width=900'],
-['🏞️','Sungai','Aliran air yang mengalir dari tempat tinggi menuju tempat yang lebih rendah.','https://commons.wikimedia.org/wiki/Special:FilePath/Citarum_River_in_Segaran,_Batujaya,_Karawang_(2025).jpg?width=900'],
-['🛶','Danau','Genangan air yang luas dan dikelilingi daratan.','https://commons.wikimedia.org/wiki/Special:FilePath/Lake_toba%281%29.jpg?width=900']
+['🌋','Gunung','Permukaan bumi yang menjulang tinggi. Beberapa gunung memiliki kawah. Contoh: Gunung Bromo di Jawa Timur.','https://commons.wikimedia.org/wiki/Special:FilePath/The_Famous_Mount_Bromo.jpg?width=900'],
+['🍵','Dataran tinggi','Daerah daratan yang tinggi dan relatif datar. Udaranya biasanya sejuk. Contoh: Dataran Tinggi Dieng di Jawa Tengah.','https://commons.wikimedia.org/wiki/Special:FilePath/Dieng_Plateau.jpg?width=900'],
+['🌾','Dataran rendah','Daerah daratan yang rendah dan relatif datar. Banyak dimanfaatkan untuk permukiman dan persawahan. Contoh: Dataran Rendah Karawang di Jawa Barat.','https://commons.wikimedia.org/wiki/Special:FilePath/Rice_fields_in_Karawang.jpg?width=900'],
+['🏖️','Pantai','Daerah pertemuan daratan dengan laut. Pantai dapat memiliki pasir. Contoh: Pantai Kuta di Bali.','https://commons.wikimedia.org/wiki/Special:FilePath/Kuta_Beach_Bali.jpg?width=900'],
+['🏞️','Sungai','Aliran air yang mengalir dari tempat tinggi menuju tempat yang lebih rendah. Contoh: Sungai Citarum di Jawa Barat.','https://commons.wikimedia.org/wiki/Special:FilePath/Citarum_River_in_Segaran,_Batujaya,_Karawang_(2025).jpg?width=900'],
+['🛶','Danau','Genangan air yang luas dan dikelilingi daratan. Contoh: Danau Toba di Sumatera Utara.','https://commons.wikimedia.org/wiki/Special:FilePath/Lake_toba%281%29.jpg?width=900']
 ];
 $('#lands').innerHTML=LD.map((l,i)=>`
   <button class="land" data-i="${i}" aria-pressed="false">
