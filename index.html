@@ -44,6 +44,10 @@ textarea{width:100%;background:var(--card);color:var(--ink);border:3px solid var
 .role{display:grid;gap:10px;grid-template-columns:1fr 1fr}
 .role div{border-radius:16px;padding:12px 14px;font-size:.98rem}
 .role .g{background:#e3efff;color:#173a6e}.role .s{background:#ffe9c7;color:#5c3500}
+/* PENGATURAN TAMPILAN BERDASARKAN PERAN */
+body[data-peran="murid"] .role .g{
+  display:none;
+}
 @media (max-width:560px){.role{grid-template-columns:1fr}}
 .role strong{display:block;font-family:'Baloo 2';font-size:1.05rem}
 .btn{display:inline-block;border:0;border-radius:14px;padding:11px 20px;font:800 1rem Nunito;background:var(--c);color:var(--on);text-decoration:none;cursor:pointer}
@@ -1156,6 +1160,7 @@ identityForm.addEventListener('submit', function(e){
 
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
   sessionStorage.setItem('peranPengguna', 'murid');
+  document.body.dataset.peran = 'murid';
 // ABSENSI OTOMATIS
 fetch(SCRIPT_URL, {
   method: 'POST',
@@ -1190,6 +1195,7 @@ guruForm.addEventListener('submit', function(e){
   }
 
   sessionStorage.setItem('peranPengguna', 'guru');
+  document.body.dataset.peran = 'guru';
 
   alert('👩‍🏫 Selamat datang, Bapak/Ibu Guru!');
 
@@ -1201,6 +1207,7 @@ $('#changeIdentity').addEventListener('click', function(){
 
   sessionStorage.removeItem('identitasMurid');
   sessionStorage.removeItem('peranPengguna');
+  document.body.removeAttribute('data-peran');
 
   identityForm.reset();
   guruForm.reset();
@@ -1212,10 +1219,21 @@ $('#changeIdentity').addEventListener('click', function(){
 });
 
 // CEK LOGIN SAAT WEBSITE DIBUKA
+const peranTersimpan = sessionStorage.getItem('peranPengguna');
+
 if(
   sessionStorage.getItem('identitasMurid') ||
-  sessionStorage.getItem('peranPengguna') === 'guru'
+  peranTersimpan === 'guru'
 ){
+  document.body.dataset.peran = peranTersimpan;
+  sembunyikanIdentitas();
+
+  if(peranTersimpan === 'murid'){
+    tampilkanSapaan();
+  }
+}else{
+  tampilkanIdentitas();
+}
   sembunyikanIdentitas();
   tampilkanSapaan();
 }else{
