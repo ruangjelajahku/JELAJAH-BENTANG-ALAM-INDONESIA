@@ -234,6 +234,13 @@ ul.tidy{padding-left:22px;margin:.3em 0}
 <section class="pg" id="pg-beranda" style="--c:#a9cdf5;--on:#1d3557">
 <div class="hero"><div class="wrap">
 <h1>Jelajah Bentang Alam Indonesia</h1>
+
+<div id="sapaanBeranda" style="display:none;background:rgba(255,255,255,.8);padding:12px 20px;border-radius:16px;margin:12px auto;max-width:500px;font-weight:700;font-size:18px;color:#1d3557">
+🌈 Selamat datang, <span id="namaSapaan"></span>!
+<br>
+<span style="font-size:15px;font-weight:500">Selamat belajar dan menjelajah hari ini! 🏞️</span>
+</div>
+
 <p>Halo, Penjelajah Cilik! Di sini kamu akan melihat, bermain, berdiskusi, lalu membuat karyamu sendiri. Siap menjelajah?</p>
 <svg viewBox="0 0 800 220" role="img" aria-label="Gambar gunung, sawah, sungai, dan danau">
 <g class="sun" style="transform-box:fill-box;transform-origin:center"><g stroke="#ffcc80" stroke-width="5" stroke-linecap="round"><path d="M680 4v12M680 80v12M636 48h12M712 48h12M649 17l8 8M703 71l8 8M711 17l-8 8M657 71l-8 8"/></g><circle cx="680" cy="48" r="30" fill="#ffe082"/><circle cx="670" cy="42" r="3" fill="#a65a00"/><circle cx="690" cy="42" r="3" fill="#a65a00"/><path d="M668 55q12 10 24 0" stroke="#a65a00" stroke-width="3" fill="none" stroke-linecap="round"/></g>
@@ -1087,6 +1094,18 @@ function sembunyikanIdentitas(){
   identityGate.hidden = true;
 }
 
+// MENAMPILKAN SAPAAN DI BERANDA
+function tampilkanSapaan(){
+  const nama = sessionStorage.getItem('sapaanMurid');
+  const kotak = document.getElementById('sapaanBeranda');
+  const namaElement = document.getElementById('namaSapaan');
+
+  if(nama && kotak && namaElement){
+    namaElement.textContent = nama;
+    kotak.style.display = 'block';
+  }
+}
+
 // PILIH LOGIN
 function pilihLogin(peran){
   identityForm.hidden = true;
@@ -1135,11 +1154,9 @@ fetch(SCRIPT_URL, {
   })
 });
   
-// UCAPAN SELAMAT DATANG
-alert(`🌈 Halo, ${nama}!
-Selamat datang di Jelajah Bentang Alam Indonesia!
-
-Selamat belajar dan menjelajah! 🏞️`);
+// UCAPAN SELAMAT DATANG DI BERANDA
+sessionStorage.setItem('sapaanMurid', nama);
+  tampilkanSapaan();
 
 sembunyikanIdentitas();
 });
@@ -1184,6 +1201,7 @@ if(
   sessionStorage.getItem('peranPengguna') === 'guru'
 ){
   sembunyikanIdentitas();
+  tampilkanSapaan();
 }else{
   tampilkanIdentitas();
 }
