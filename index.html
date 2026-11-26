@@ -1056,7 +1056,9 @@ function sembunyikanIdentitas(){
   identityGate.hidden = true;
 }
 function tampilkanSapaan(){
-  const identitas = bacaIdentitasTersimpan();
+  const identitas = JSON.parse(
+  sessionStorage.getItem('identitasMurid') || 'null'
+);
   const sapaan = document.getElementById('sapaanMurid');
 
   if(identitas && identitas.nama){
