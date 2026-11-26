@@ -50,6 +50,9 @@ body[data-peran="murid"] .role .g{
 }
 @media (max-width:560px){.role{grid-template-columns:1fr}}
 .role strong{display:block;font-family:'Baloo 2';font-size:1.05rem}
+body[data-peran="murid"] .role .g{
+  display:none;
+}
 .btn{display:inline-block;border:0;border-radius:14px;padding:11px 20px;font:800 1rem Nunito;background:var(--c);color:var(--on);text-decoration:none;cursor:pointer}
 .lands{display:grid;gap:10px;grid-template-columns:repeat(auto-fit,minmax(130px,1fr))}
 .land{border:3px solid var(--line);background:var(--card);border-radius:18px;padding:12px 6px;font:800 1rem Nunito;color:var(--ink);cursor:pointer;text-align:center}
@@ -811,6 +814,49 @@ Membuat karya, menjelaskan hasil karyanya secara lisan, mengunggah foto karya ke
 <div class="nextrow" id="nx-karyaku"></div>
 </div>
 </section>
+<!-- DASHBOARD GURU -->
+<section class="pg" id="pg-dashboard-guru" style="--c:#b8d5f5;--on:#173a6e" hidden>
+  <div class="band">
+    <div class="wrap">
+      <div class="tag">👩‍🏫</div>
+      <h2>Dashboard Guru</h2>
+      <p>Selamat datang, Bapak/Ibu Guru! Pantau aktivitas dan hasil belajar murid.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <div class="grid">
+      <div class="card">
+        <h3>📋 Data Kehadiran</h3>
+        <p>Melihat daftar murid yang sudah mengisi kehadiran.</p>
+        <button class="btn" onclick="alert('Fitur data kehadiran akan dihubungkan ke Spreadsheet.')">
+          Lihat Kehadiran
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>📝 Hasil Aktivitas Murid</h3>
+        <p>Melihat jawaban murid pada kegiatan H, E, T, dan I.</p>
+        <button class="btn" onclick="alert('Fitur hasil aktivitas akan dihubungkan ke Spreadsheet.')">
+          Lihat Jawaban
+        </button>
+      </div>
+
+      <div class="card">
+        <h3>🎨 Karya dan Refleksi</h3>
+        <p>Melihat hasil karya dan refleksi pembelajaran murid.</p>
+        <button class="btn" onclick="alert('Fitur karya dan refleksi akan dihubungkan ke Spreadsheet.')">
+          Lihat Refleksi
+        </button>
+      </div>
+        </div>
+
+    <div class="nextrow" id="nx-dashboard-guru"></div>
+
+  </div>
+</section>
+</section>
 </main>
 
 <footer class="foot"><div class="wrap">
@@ -829,7 +875,8 @@ const P=[
 ['menjelajah','E · Eksplorasi Konkret','#a8e6df','#0d4a46'],
 ['diskusi','T · Tukar Gagasan','#c5e8a5','#2c4a12'],
 ['ikat','I · Ikat Konsep','#ffb8b5','#5a1a1a'],
-['karyaku','K · Karya dan Refleksi','#cfc9f5','#2b2660']
+['karyaku','K · Karya dan Refleksi','#cfc9f5','#2b2660'],
+['dashboard-guru','👩‍🏫 Dashboard Guru','#b8d5f5','#173a6e']
 ];
 const L=['D','H','E','T','I','K'];
 const DECO={'ayo-mulai':'📖🎬⭐','hubungkan':'🏡🌾🎣','menjelajah':'🔍🗺️🧭','diskusi':'💬🤝📌','ikat':'🧩💡🏆','karyaku':'🎨✂️🖍️'};
@@ -1161,6 +1208,7 @@ identityForm.addEventListener('submit', function(e){
   sessionStorage.setItem('identitasMurid', JSON.stringify(identitas));
   sessionStorage.setItem('peranPengguna', 'murid');
   document.body.dataset.peran = 'murid';
+  document.body.dataset.peran = 'murid';
 // ABSENSI OTOMATIS
 fetch(SCRIPT_URL, {
   method: 'POST',
@@ -1234,11 +1282,7 @@ if(
 }else{
   tampilkanIdentitas();
 }
-  sembunyikanIdentitas();
-  tampilkanSapaan();
-}else{
-  tampilkanIdentitas();
-}
+
 
 const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwKWar0qFR5W6t3rxUK5mYpE8wqR8T0_8csgSp47JSzVko1mY9w2OeoOR2apyo2UmqoOg/exec';
 
