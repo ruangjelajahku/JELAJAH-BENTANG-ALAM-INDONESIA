@@ -413,8 +413,33 @@ Mengamati foto bentang alam, menceritakan pengalaman atau pengetahuan yang dimil
 </div>
 
 <div class="card">
-<h3>🗣️ Ceritakan Ciri-Cirinya!</h3>
-<p>Pilih satu bentang alam yang kamu sukai. Sebutkan satu cirinya kepada guru!</p>
+  <h3>🗣️ Ceritakan Ciri-Cirinya!</h3>
+  <p>Pilih satu bentang alam yang kamu sukai, lalu tuliskan satu cirinya!</p>
+
+  <label for="pilihLand" style="display:block;font-weight:700;margin-bottom:8px">
+    Bentang alam yang kupilih:
+  </label>
+
+  <select id="pilihLand" class="input" style="width:100%;margin-bottom:12px">
+    <option value="">-- Pilih bentang alam --</option>
+    <option value="Gunung">Gunung</option>
+    <option value="Dataran tinggi">Dataran tinggi</option>
+    <option value="Dataran rendah">Dataran rendah</option>
+    <option value="Pantai">Pantai</option>
+    <option value="Sungai">Sungai</option>
+    <option value="Danau">Danau</option>
+  </select>
+
+  <label for="jawabanCiri" style="display:block;font-weight:700;margin-bottom:8px">
+    Ciri-cirinya:
+  </label>
+
+  <textarea
+    id="jawabanCiri"
+    placeholder="Tuliskan satu ciri bentang alam yang kamu pilih..."
+    rows="3"
+    style="width:100%;box-sizing:border-box"
+  ></textarea>
 </div>
 <div class="card">
   <button class="btn" id="kirimE">Kirim Jawaban E 📩</button>
@@ -1113,8 +1138,16 @@ document.getElementById('kirimE').addEventListener('click',()=>{
     document.querySelector(`#sort .opt[data-i="${i}"][aria-pressed="true"]`)?.dataset.v || ''
   );
 
+  const pilihLand=$('#pilihLand').value;
+  const jawabanCiri=$('#jawabanCiri').value.trim();
+
   if(jawabanMatch.some(x=>!x) || jawabanSort.some(x=>!x)){
     alert('Lengkapi semua jawaban Permainan 1 dan Permainan 2 terlebih dahulu.');
+    return;
+  }
+
+  if(!pilihLand || !jawabanCiri){
+    alert('Pilih bentang alam dan tuliskan satu cirinya terlebih dahulu.');
     return;
   }
 
@@ -1125,7 +1158,9 @@ document.getElementById('kirimE').addEventListener('click',()=>{
   kirimData('E',[
     jawabanMatch.join(' | '),
     jawabanSort.map((v,i)=>`${S[i][0]}: ${v==='D'?'Daratan':'Perairan'}`).join(' | '),
-    `${skor}/12`
+    `${skor}/12`,
+    `Bentang alam pilihan: ${pilihLand}`,
+    `Ciri-ciri: ${jawabanCiri}`
   ],'statusE','kirimE');
 });
 
